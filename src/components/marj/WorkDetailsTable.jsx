@@ -199,7 +199,7 @@ export default function WorkDetailsTable() {
       field: "hours",
       headerName: "Hours",
       type: "number",
-      width: 180,
+      width: 100,
       align: "left",
       headerAlign: "left",
       editable: true, 

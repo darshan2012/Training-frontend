@@ -13,6 +13,7 @@ function RandomImage() {
         // console.log(res.data.data[0]);
         setRandomImg(res.data.data[0])
       })  
+      .catch((err)=>{console.log(err)})
     }
   return( 
   <Container>
