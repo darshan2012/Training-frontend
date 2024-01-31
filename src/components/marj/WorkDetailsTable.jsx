@@ -35,7 +35,6 @@ function EditToolbar(props) {
       ...oldModel,
       [_id]: { mode: GridRowModes.Edit, fieldToFocus: "name" },
     }));
-    
   };
 
   return (
@@ -139,12 +138,10 @@ export default function WorkDetailsTable() {
           }
         )
         .then((res) => {
-          console.log(res)
+          // console.log(res)
           // const updatedRow = { ...newRow, isNew: false };
           // id = row.id;
-
           setRows(res.data.data.workDetails);
-          
           return newRow;
         })
         .catch((error) => {
@@ -165,7 +162,7 @@ export default function WorkDetailsTable() {
         .then(() => {
           const updatedRow = { ...newRow, isNew: false };
           setRows((prevRows) =>
-            prevRows.map((row) => (row.id === newRow.id ? updatedRow : row))
+            prevRows.map((row) => (row._id === newRow._id ? updatedRow : row))
           );
         })
         .catch((error) => {
@@ -192,8 +189,8 @@ export default function WorkDetailsTable() {
       headerName: "Month",
       width: 200,
       editable: true,
-      type:"singleSelect",
-      valueOptions:months
+      type: "singleSelect",
+      valueOptions: months,
     },
     {
       field: "hours",
@@ -202,7 +199,7 @@ export default function WorkDetailsTable() {
       width: 100,
       align: "left",
       headerAlign: "left",
-      editable: true, 
+      editable: true,
       renderEditCell: (params) => (
         <GridEditInputCell
           {...params}
@@ -210,8 +207,7 @@ export default function WorkDetailsTable() {
             min: 0,
           }}
         />
-      )
-
+      ),
     },
     {
       field: "actions",
@@ -265,7 +261,7 @@ export default function WorkDetailsTable() {
     <Box
       className="box-shadow p-3"
       sx={{
-        height:"500px",
+        height: "500px",
         width: "50%",
         "& .actions": {
           color: "text.secondary",
@@ -287,9 +283,9 @@ export default function WorkDetailsTable() {
         onRowEditStop={handleRowEditStop}
         processRowUpdate={processRowUpdate}
         hideFooterSelectedRowCount={true}
-        // autoHeight={true}  
+        // autoHeight={true}
         autoPageSize={true}
-        sx={{maxHeight:"400px"}}
+        sx={{ maxHeight: "400px" }}
         density="standard"
         slots={{
           toolbar: EditToolbar,
