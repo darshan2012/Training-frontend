@@ -16,14 +16,11 @@ import {
   GridActionsCellItem,
   GridRowEditStopReasons,
   GridEditInputCell,
-  GridPreProcessEditCellProps,
-  GridToolbarExport
+  GridToolbarExport,
 } from "@mui/x-data-grid";
 import axios from "axios";
-import { Typography } from "@mui/material";
-import { GridToolbarExportContainer } from "@mui/x-data-grid";
 
-const initialRows = [];
+
 
 function EditToolbar(props) {
   const { setRows, setRowModesModel } = props;
@@ -46,19 +43,29 @@ function EditToolbar(props) {
         Add record
       </Button>
       <Button className="ms-auto me-4">
-      <GridToolbarExport />
-
+        <GridToolbarExport
+          csvOptions={{
+            fileName: "customerDataBase",
+            // delimiter: ';',
+            // utf8WithBom: true,
+          }}
+          printOptions={{
+            // pageStyle: '.MuiDataGrid-root .MuiDataGrid-main { color: rgba(0, 0, 0, 0.87); }',
+            fileName: "userWorkDetails",
+            hideFooter: true,
+            hideToolbar: true,
+          }}
+        />
       </Button>
-
     </GridToolbarContainer>
   );
 }
 
 export default function WorkDetailsTable() {
-  const [rows, setRows] = useState(initialRows);
+  const [rows, setRows] = useState([]);
   const [rowModesModel, setRowModesModel] = useState({});
   // const navigate = useNavigate();
-
+console.count();
   const fetchWorkDetails = async () => {
     try {
       const response = await axios.get(
@@ -70,13 +77,6 @@ export default function WorkDetailsTable() {
         }
       );
 
-      const formattedRows = response.data.data.workDetails.map((row) => ({
-        id: row._id, // Map the _id field to id
-        name: row.name,
-        month: row.month,
-        hours: row.hours,
-      }));
-
       setRows(response.data.data.workDetails);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -84,9 +84,9 @@ export default function WorkDetailsTable() {
   };
 
   useEffect(() => {
-    // Fetch data from the backend
+    
     fetchWorkDetails();
-  }, []); // Empty dependency array ensures this effect runs once after the initial render
+  }, []); 
 
   const handleRowEditStop = (params, event) => {
     if (params.reason === GridRowEditStopReasons.rowFocusOut) {
@@ -133,13 +133,12 @@ export default function WorkDetailsTable() {
   const processRowUpdate = async (newRow) => {
     // Update row on the backend
     // console.log("new ", newRow);
-    if(newRow.hours < 0)
-    {
-      newRow.hours *= -1; 
+    if (newRow.hours < 0) {
+      newRow.hours *= -1;
     }
     if (newRow.isNew) {
       let id;
-      
+
       await axios
         .post(
           `${process.env.REACT_APP_URL}users/v1/workdetails/`,
@@ -151,14 +150,10 @@ export default function WorkDetailsTable() {
           }
         )
         .then((res) => {
-          // console.log(res)
-          // const updatedRow = { ...newRow, isNew: false };
-          // id = row.id;
           setRows(res.data.data.workDetails);
           return newRow;
         })
         .catch((error) => {
-          
           console.error("Error adding data:", error);
           return;
         });
@@ -191,8 +186,7 @@ export default function WorkDetailsTable() {
     setRowModesModel(newRowModesModel);
   };
 
-  // const numberFormator = new Intl.NumberFormat(num);
-  
+ 
 
   const columns = [
     {
@@ -201,7 +195,7 @@ export default function WorkDetailsTable() {
       flex: 1,
       editable: true,
     },
-    { 
+    {
       field: "month",
       headerName: "Month",
       flex: 1,
@@ -217,8 +211,9 @@ export default function WorkDetailsTable() {
       align: "left",
       headerAlign: "left",
       editable: true,
-      
-      valueFormatter: ({ value }) => new Intl.NumberFormat(value).format(value<0?value*-1:value),
+
+      valueFormatter: ({ value }) =>
+        new Intl.NumberFormat(value).format(value < 0 ? value * -1 : value),
       renderEditCell: (params) => (
         <GridEditInputCell
           {...params}
@@ -276,12 +271,9 @@ export default function WorkDetailsTable() {
     },
   ];
 
-  
-
   return (
     <Box
       className="box-shadow p-3 col-lg-7 col-12"
-
       sx={{
         height: "500px",
         // width: "60%",

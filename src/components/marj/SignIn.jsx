@@ -3,8 +3,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -13,18 +11,31 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
+import { ToastContainer, toast } from "react-toastify";
 
-import { Bounce, ToastContainer, toast } from "react-toastify";
-
-import { appendErrors, Form, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import axios from "axios";
 import { Link as RouteLink, useNavigate } from "react-router-dom";
+import {
+  FormControl,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+} from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 // TODO remove, this demo shouldn't need to reset the theme.
 
 const defaultTheme = createTheme();
 
 export default function SignIn() {
+  const [showPassword, setShowPassword] = React.useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
   const navigate = useNavigate();
   const {
     register,
@@ -32,7 +43,7 @@ export default function SignIn() {
     setError,
     formState: { errors },
   } = useForm();
-  const [loginError, setLoginError] = useState("");
+  // const [loginError, setLoginError] = useState("");
 
   const onSubmit = async (data) => {
     console.log(data);
@@ -40,8 +51,8 @@ export default function SignIn() {
       .post(`${process.env.REACT_APP_URL}users/v1/login`, data)
       .then((res) => {
         toast.success("Login Successful!", {
-          position: 'top-right',
-          autoClose:1000,
+          position: "top-right",
+          autoClose: 1000,
         });
         // console.log(res.data)
         // alert("Success " + res.data)
@@ -98,7 +109,40 @@ export default function SignIn() {
             {errors.username && (
               <p className="text-danger">{errors.username.message}</p>
             )}
-            <TextField
+
+            <FormControl margin="normal" fullWidth variant="outlined">
+              <InputLabel  htmlFor="outlined-adornment-password">
+                Password
+              </InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-password"
+                type={showPassword ? "text" : "password"}
+                {...register("password", {
+                  required: "password field is required",
+                  pattern: {
+                    value:
+                      "^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]{8,}$",
+                    message:
+                      "Password should be of Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character",
+                  },
+                })}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label="Password"
+              />
+            </FormControl>
+
+            {/* <TextField
               margin="normal"
               required
               fullWidth
@@ -112,16 +156,27 @@ export default function SignIn() {
                 },
               })}
               label="Password"
-              type="password"
+              type={showPassword ? "text" : "password"}
               id="password"
               autoComplete="current-password"
-            />
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            ></TextField> */}
             {errors.password && (
               <p className="text-danger">{errors.password.message}</p>
             )}
-            {
-              errors?.root?.serverError?.type > 300 && <p className="text-danger">{errors.root.serverError.message}</p>
-            }
+            {errors?.root?.serverError?.type > 300 ? (
+              <p className="text-danger" style={{height:"15px"}}>{errors.root.serverError.message}</p>
+            ): <p style={{height:"15px"}}></p>}
             <Button
               type="submit"
               fullWidth

@@ -15,12 +15,20 @@ import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
-import { FormLabel, Radio, RadioGroup } from "@mui/material";
+import {
+  FormLabel,
+  IconButton,
+  InputAdornment,
+  OutlinedInput,
+  Radio,
+  RadioGroup,
+} from "@mui/material";
 import { Form, useForm } from "react-hook-form";
 import axios from "axios";
 import { Link as RouteLink, useNavigate } from "react-router-dom";
 // import { ToastContainer, Toast } from "react-bootstrap";
 import { Bounce, ToastContainer, toast } from "react-toastify";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 const defaultTheme = createTheme();
 
@@ -31,6 +39,8 @@ export default function SignUp() {
     handleSubmit,
     setError,
     formState: { errors },
+    trigger,
+    clearErrors
   } = useForm();
   const onSubmit = async (data) => {
     console.log(data);
@@ -72,6 +82,12 @@ export default function SignUp() {
   const [districts, setDistricts] = useState([]);
   const [companies, setCompanies] = useState([]);
 
+  const [showPassword, setShowPassword] = React.useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
   const fetchCompanies = async (district) => {
     // console.log(district)
     let url = `${process.env.REACT_APP_URL}companies/v1/`;
@@ -109,7 +125,9 @@ export default function SignUp() {
     const selectedState = event.target.value;
     // console.log(event)
     // setValue("state", selectedState); // Update the form value
+    clearErrors("state")
     fetchDistricts(selectedState);
+    
   };
 
   const handleDistrictChange = async (event) => {
@@ -117,8 +135,17 @@ export default function SignUp() {
     // console.log(event)
     // setValue("state", selectedState); // Update the form value
     fetchCompanies(district);
+    clearErrors('district')
   };
-
+  
+  const handleCompanyChange = async (event) => {
+    // const selectedState = event.target.value;
+    // console.log(event)
+    // setValue("state", selectedState); // Update the form value
+    clearErrors("company")
+    // fetchDistricts(selectedState);
+    
+  };
   // console.count();
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -159,6 +186,7 @@ export default function SignUp() {
                   autoFocus
                 />
                 {errors.firstname && (
+                  // <DisplayError err={errors.firstname.message} />
                   <p className="text-danger">{errors.firstname.message}</p>
                 )}
               </Grid>
@@ -192,7 +220,46 @@ export default function SignUp() {
                   <p className="text-danger">{errors.username.message}</p>
                 )}
               </Grid>
-              <Grid item xs={12}>
+              <Grid item xs={12}> 
+                <FormControl margin="normal" fullWidth variant="outlined">
+                  <InputLabel htmlFor="outlined-adornment-password">
+                    Password
+                  </InputLabel>
+                  <OutlinedInput
+                    id="outlined-adornment-password"
+                    type={showPassword ? "text" : "password"}
+                    {...register("password", {
+                      required: "Password field is required",
+                      minLength:"Password should be of minimum Eight characters",
+
+                      pattern: {
+                        value:
+                          "^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]{8,}$",
+                        message:
+                          "Password should be of Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character",
+                      },
+                    })}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                    label="Password"
+                  />
+                </FormControl>
+                {errors.password && (
+                  
+                  <p className="text-danger">{errors.password.message}</p>
+                )}
+              </Grid>
+              {/* <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
@@ -212,7 +279,7 @@ export default function SignUp() {
                 {errors.password && (
                   <p className="text-danger">{errors.password.message}</p>
                 )}
-              </Grid>
+              </Grid> */}
               <Grid item xs={12}>
                 <FormControl component="fieldset">
                   <FormLabel component="legend">Gender</FormLabel>
@@ -245,6 +312,7 @@ export default function SignUp() {
                       label="Other"
                     />
                   </RadioGroup>
+                  {errors.gender && <p className="text-danger">{errors.gender.message}</p>}
                 </FormControl>
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -265,6 +333,7 @@ export default function SignUp() {
                       </MenuItem>
                     ))}
                   </Select>
+                  {errors.state && <p className="text-danger">{errors.state.message}</p>}
                 </FormControl>
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -277,6 +346,7 @@ export default function SignUp() {
                     required
                     label="District"
                     id="district"
+                    // disabled
                     onChange={handleDistrictChange}
                   >
                     {districts.map((district) => (
@@ -284,7 +354,9 @@ export default function SignUp() {
                         {district.districtname}
                       </MenuItem>
                     ))}
+                    
                   </Select>
+                  {errors.district && <p className="text-danger">{errors.district.message}</p>}
                 </FormControl>
               </Grid>
 
@@ -298,6 +370,7 @@ export default function SignUp() {
                     {...register("company", {
                       required: "This is a required field",
                     })}
+                    onChange={handleCompanyChange}
                   >
                     {companies.map((company) => (
                       <MenuItem key={company._id} value={company._id}>
@@ -305,6 +378,7 @@ export default function SignUp() {
                       </MenuItem>
                     ))}
                   </Select>
+                  {errors.company && <p className="text-danger">{errors.company.message}</p>}
                 </FormControl>
               </Grid>
             </Grid>

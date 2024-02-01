@@ -23,7 +23,6 @@ import HtmlForm from "./components/hetal/HtmlForm";
 
 const router = createBrowserRouter(
   createRoutesFromElements([
-    
       <Route path="/" element={<Layout />}>
         <Route path="" element={<Main />} />
         <Route path="random-image/" element={<ImageRoot />} />
@@ -37,7 +36,7 @@ const router = createBrowserRouter(
       </Route>
   ])
 );
-
+// console.count();
 function App() {
   return (
     <>

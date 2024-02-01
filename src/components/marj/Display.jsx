@@ -37,7 +37,7 @@ const Display = () => {
         {isAuthenticated && 
         <Box className=' d-flex flex-column justify-content-center align-items-center'>
             <WorkDetailsTable />
-            <BarChart />
+            {/* <BarChart /> */}
         </Box>
             
         }
