@@ -13,6 +13,9 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
+
+import { Bounce, ToastContainer, toast } from "react-toastify";
+
 import { appendErrors, Form, useForm } from "react-hook-form";
 import axios from "axios";
 import { Link as RouteLink, useNavigate } from "react-router-dom";
@@ -36,14 +39,18 @@ export default function SignIn() {
     await axios
       .post(`${process.env.REACT_APP_URL}users/v1/login`, data)
       .then((res) => {
+        toast.success("Login Successful!", {
+          position: 'top-right',
+          autoClose:1000,
+        });
         // console.log(res.data)
         // alert("Success " + res.data)
         localStorage.setItem("jwttoken", res.data.data.token);
-        navigate("/user");
+        setTimeout(() => navigate("/user"), 2000);
       })
       .catch((err) => {
+        // toast.error("error")
         console.log(err);
-        // console.log(errors);
         setError("root.serverError", {
           type: 400,
           message: err.response.data.message,
@@ -140,6 +147,7 @@ export default function SignIn() {
           </Box>
         </Box>
       </Container>
+      <ToastContainer />
     </ThemeProvider>
   );
 }

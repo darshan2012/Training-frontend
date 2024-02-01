@@ -19,6 +19,8 @@ import { FormLabel, Radio, RadioGroup } from "@mui/material";
 import { Form, useForm } from "react-hook-form";
 import axios from "axios";
 import { Link as RouteLink, useNavigate } from "react-router-dom";
+// import { ToastContainer, Toast } from "react-bootstrap";
+import { Bounce, ToastContainer, toast } from "react-toastify";
 
 const defaultTheme = createTheme();
 
@@ -37,19 +39,43 @@ export default function SignUp() {
       .then((res) => {
         console.log(res.data);
         // alert("Success " + res.data.firstname)
-        navigate("/user/login");
+        toast.success("Regestration Successful!", {
+          position: "top-right",
+          autoClose: 1000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+        setTimeout(navigate("/user/login"), 2000);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        // console.log("here");
+        toast.error(err.response.data.message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          transition: Bounce,
+        });
+      });
   };
-// console.log(process.env.REACT_APP_URL)
+  // console.log(process.env.REACT_APP_URL)
   const [states, setStates] = useState([]);
   const [districts, setDistricts] = useState([]);
   const [companies, setCompanies] = useState([]);
 
   const fetchCompanies = async (district) => {
     // console.log(district)
-    let url = `${process.env.REACT_APP_URL}companies/v1/`
-    if(district) url += "?district=" + district 
+    let url = `${process.env.REACT_APP_URL}companies/v1/`;
+    if (district) url += "?district=" + district;
     // console.log("here",url)
     await axios
       .get(url)
@@ -58,7 +84,7 @@ export default function SignUp() {
   };
 
   const fetchStates = async () => {
-    const url = process.env.REACT_APP_URL
+    const url = process.env.REACT_APP_URL;
     await axios
       .get(url + "states/v1/")
       .then((res) => setStates(res.data.data))
@@ -93,7 +119,6 @@ export default function SignUp() {
     fetchCompanies(district);
   };
 
-  
   // console.count();
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -246,12 +271,9 @@ export default function SignUp() {
                 <FormControl fullWidth>
                   <InputLabel htmlFor="district">District</InputLabel>
                   <Select
-                    
-                    {...register(
-                      "district",
-                      { required: "This is a required field" },
-                      )
-                    }
+                    {...register("district", {
+                      required: "This is a required field",
+                    })}
                     required
                     label="District"
                     id="district"
@@ -306,6 +328,19 @@ export default function SignUp() {
           </Box>
         </Box>
       </Container>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        // transition: Bounce,
+      />
     </ThemeProvider>
   );
 }

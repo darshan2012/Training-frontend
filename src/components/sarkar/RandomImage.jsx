@@ -18,7 +18,7 @@ function RandomImage() {
   return( 
   <Container>
     <Button className="btn m-3 d-block bg-success"  variant="contained"  onClick={generateRandomImage}>generate-random-image</Button>
-
+    
     {randomImg ?
       <img className="m-4" src={'data:'+ randomImg.type +';base64,' + randomImg.imageBase64} style={{maxHeight:"350px",maxWidth:"400px"}} />
     :

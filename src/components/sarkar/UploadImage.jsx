@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import axios from "axios";
 import { Box } from "@mui/material";
+import { Bounce, ToastContainer, toast } from "react-toastify";
 
 function UploadImage() {
   const [image, setImage] = useState("");
@@ -14,9 +15,10 @@ function UploadImage() {
         `${process.env.REACT_APP_URL}image/v1/upload`,
         data
       );
-      alert("image uploaded");
+      toast.success("Image Uploaded Successfully!");
       // console.log(res.data.output)
       setImage(res.data.output)
+      setTimeout(() => setImage(""),10000)
       // console.log(res);
       if (inputFile.current) {
         inputFile.current.value = "";
@@ -24,13 +26,13 @@ function UploadImage() {
         inputFile.current.type = "file";
       }
     } catch (error) {
-      console.log(error);
+      console.log(error.response.data.message);
       if (inputFile.current) {
         inputFile.current.value = "";
         inputFile.current.type = "text";
         inputFile.current.type = "file";
       }
-      alert("error in uploading the image");
+      toast.error(error.response.data.message);
     }
   };
   return (
@@ -47,6 +49,7 @@ function UploadImage() {
           />
         </Box>
       )}
+      <ToastContainer />
     </Box>
   );
 }

@@ -8,6 +8,8 @@ import {
   RouterProvider,
   Routes,
 } from "react-router-dom";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 import Signup from "./components/marj/Signup";
 import SignIn from "./components/marj/SignIn";

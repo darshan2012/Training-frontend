@@ -16,10 +16,12 @@ import {
   GridActionsCellItem,
   GridRowEditStopReasons,
   GridEditInputCell,
-  GridPreProcessEditCellProps
+  GridPreProcessEditCellProps,
+  GridToolbarExport
 } from "@mui/x-data-grid";
 import axios from "axios";
 import { Typography } from "@mui/material";
+import { GridToolbarExportContainer } from "@mui/x-data-grid";
 
 const initialRows = [];
 
@@ -43,6 +45,11 @@ function EditToolbar(props) {
       <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
         Add record
       </Button>
+      <Button className="ms-auto me-4">
+      <GridToolbarExport />
+
+      </Button>
+
     </GridToolbarContainer>
   );
 }
@@ -268,6 +275,8 @@ export default function WorkDetailsTable() {
       },
     },
   ];
+
+  
 
   return (
     <Box
