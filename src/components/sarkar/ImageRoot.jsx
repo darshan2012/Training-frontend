@@ -5,7 +5,7 @@ import { Container } from "@mui/material";
 
 function ImageRoot() {
   return (
-    <Container sx={{height:"600px"}} className="box-shadow p-5 d-flex justify-content-center align-items-start">
+    <Container sx={{height:"500px"}} className="box-shadow p-5 d-flex justify-content-center align-items-start">
       <UploadImage />
       <RandomImage />
     </Container>

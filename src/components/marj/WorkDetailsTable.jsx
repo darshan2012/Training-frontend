@@ -16,6 +16,7 @@ import {
   GridActionsCellItem,
   GridRowEditStopReasons,
   GridEditInputCell,
+  GridPreProcessEditCellProps
 } from "@mui/x-data-grid";
 import axios from "axios";
 import { Typography } from "@mui/material";
@@ -125,8 +126,13 @@ export default function WorkDetailsTable() {
   const processRowUpdate = async (newRow) => {
     // Update row on the backend
     // console.log("new ", newRow);
+    if(newRow.hours < 0)
+    {
+      newRow.hours *= -1; 
+    }
     if (newRow.isNew) {
       let id;
+      
       await axios
         .post(
           `${process.env.REACT_APP_URL}users/v1/workdetails/`,
@@ -145,7 +151,8 @@ export default function WorkDetailsTable() {
           return newRow;
         })
         .catch((error) => {
-          console.error("Error updating data:", error);
+          
+          console.error("Error adding data:", error);
           return;
         });
     } else {
@@ -177,17 +184,20 @@ export default function WorkDetailsTable() {
     setRowModesModel(newRowModesModel);
   };
 
+  // const numberFormator = new Intl.NumberFormat(num);
+  
+
   const columns = [
     {
       field: "name",
       headerName: "Name",
-      width: 180,
+      flex: 1,
       editable: true,
     },
-    {
+    { 
       field: "month",
       headerName: "Month",
-      width: 200,
+      flex: 1,
       editable: true,
       type: "singleSelect",
       valueOptions: months,
@@ -196,10 +206,12 @@ export default function WorkDetailsTable() {
       field: "hours",
       headerName: "Hours",
       type: "number",
-      width: 100,
+      flex: 1,
       align: "left",
       headerAlign: "left",
       editable: true,
+      
+      valueFormatter: ({ value }) => new Intl.NumberFormat(value).format(value<0?value*-1:value),
       renderEditCell: (params) => (
         <GridEditInputCell
           {...params}
@@ -213,7 +225,7 @@ export default function WorkDetailsTable() {
       field: "actions",
       type: "actions",
       headerName: "Actions",
-      width: 150,
+      flex: 1,
       cellClassName: "actions",
       getActions: ({ id }) => {
         const isInEditMode = rowModesModel[id]?.mode === GridRowModes.Edit;
@@ -259,10 +271,11 @@ export default function WorkDetailsTable() {
 
   return (
     <Box
-      className="box-shadow p-3"
+      className="box-shadow p-3 col-lg-7 col-12"
+
       sx={{
         height: "500px",
-        width: "50%",
+        // width: "60%",
         "& .actions": {
           color: "text.secondary",
         },

@@ -172,12 +172,12 @@ export default function BarChart() {
 
   return (
     <Box
-      className="box-shadow p-3"
+      className="box-shadow p-3 col-lg-7 col-12"
       mt={5}
       mb={5}
       sx={{
         height: "auto",
-        width: "50%",
+        // width: "50%",
       }}
     >
       <h3 className="mb-4">Total Working hours by company</h3>

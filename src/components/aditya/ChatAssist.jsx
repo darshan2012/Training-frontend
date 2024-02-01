@@ -29,14 +29,14 @@ function ChatAssist() {
     <Container>
       <Box height={600}  mt={5} sx={{ boxShadow: 2 }}>
         <div className="d-flex ">
-          <img className="m-3" src='https://freelogopng.com/images/all_img/1681142503openai-icon-png.png' height="40px" width="70px" />
-          <h1 style={{fontFamily:"Oswald"}} className="mt-2 text-success">OpenAI Assitance</h1>
+          <img className="m-3 image-fluid" src='https://freelogopng.com/images/all_img/1681142503openai-icon-png.png' height="50px"  />
+          <h1 style={{fontFamily:"Oswald",color:"#10A37F"}} className="mt-3">OpenAI Assitance</h1>
         </div>
         <TextField className="m-3" sx={{width:"97%"}}  inputRef={promptRef}  rows={4} multiline placeholder="Enter the prompt" size="medium"  variant="standard"  />
-        <Button onClick={handleSubmit} color="success" variant="contained" fullWidth className="mt-1"  >generate response</Button>
+        <Button onClick={handleSubmit} sx={{backgroundColor:"#10A37F"}} color="success"  variant="contained" fullWidth className="mt-1"  >generate response</Button>
         {/* <h2 style={{fontFamily:"Oswald"}} className="b">response</h2> */}
         {response && <p className="m-4" style={{fontFamily:"Oswald"}}>{response}</p>}
-      {err && <p className="m-3 text-danger">{err}</p>}
+      {err && <p className="m-3 text-center text-danger">{err}</p>}
       </Box>
       {/* <input ref={promptRef} className="prompt" type="text" />
       <button className="submit-prompt" onClick={handleSubmit}><img src='https://static.vecteezy.com/system/resources/previews/021/495/993/original/chatgpt-openai-logo-icon-free-png.png' height="30px" width="100px" /></button>

@@ -20,9 +20,9 @@ function RandomImage() {
     <Button className="btn m-3 d-block bg-success"  variant="contained"  onClick={generateRandomImage}>generate-random-image</Button>
 
     {randomImg ?
-      <img className="m-4" src={'data:'+ randomImg.type +';base64,' + randomImg.imageBase64} style={{maxHeight:"400px",maxWidth:"400px"}} />
+      <img className="m-4" src={'data:'+ randomImg.type +';base64,' + randomImg.imageBase64} style={{maxHeight:"350px",maxWidth:"400px"}} />
     :
-    <div style={{height: "300px",width:"400px"}}></div> 
+    <div style={{height: "350px",width:"400px"}}></div> 
     }
     </Container>);
 }
