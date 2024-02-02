@@ -26,7 +26,7 @@ function UploadImage() {
         inputFile.current.type = "file";
       }
     } catch (error) {
-      console.log(error.response.data.message);
+      console.log(error);
       if (inputFile.current) {
         inputFile.current.value = "";
         inputFile.current.type = "text";

@@ -12,6 +12,7 @@ function Main() {
             <tr style={{ fontSize: "2em" }}>
               <th>Weeks</th>
               <th>Name</th>
+              {/* <th>Link</th> */}
               <th style={{ width: "400px" }}>Problem Statement</th>
             </tr>
           </thead>
@@ -25,12 +26,13 @@ function Main() {
               <td width={200}>
                 <Link to={"/form-html-css"}>Hetal </Link>
               </td>
+              {/* <td>tast - documentation</td> */}
               <td>
                 <ul>
                   <li>Create a form using html, css and bootstrap</li>
                   <li>
-                    explore the tools and technology like,
-                    javascript,bootstrap,mui,git,postman.
+                    Explore various tools and technologies like JavaScript,
+                    Bootstrap, MUI, Git, and Postman.
                   </li>
                 </ul>
               </td>
@@ -42,16 +44,16 @@ function Main() {
               <td>
                 <ul>
                   <li>
-                    Create a mern app as chat assistant which has chatGPT
-                    integration using openai api
+                    Create a MERN app as a chat assistant that integrates
+                    ChatGPT using the OpenAI API.
                   </li>
                   <li>
-                    Also explore the difference between normalized and
-                    denormalized data
+                    Also, explore the difference between normalized and
+                    denormalized data.
                   </li>
                   <li>
-                    Explore the topics like Partitioning, Indexing, Views,
-                    aggregation with chart using chart tools.
+                    Explore topics such as partitioning, indexing, views,
+                    aggregation, and their visualization through Chart.js.
                   </li>
                 </ul>
               </td>
@@ -63,11 +65,11 @@ function Main() {
               <td>
                 <ul>
                   <li>
-                    Handle the Backend Side of the user form and also file
-                    upload using multer,
+                    Handle the backend side of the user form and file upload
+                    using multer.
                   </li>
                   <li>
-                    Explore the error handling, folder structure in node js.
+                    Explore error handling and folder structure in Node.js.
                   </li>
                 </ul>
               </td>
@@ -82,7 +84,9 @@ function Main() {
 
               <td>
                 <ul>
-                  <li>Create a form in react using the react-hook-form.</li>
+                  <li>
+                    Create a form in React using the react-hook-form library.
+                  </li>
                 </ul>
               </td>
             </tr>
@@ -93,18 +97,20 @@ function Main() {
               <td>
                 <ul>
                   <li>
-                    In the form created previously in the task of mihir and
-                    aditya add the state, district and company dependencies such
-                    that if the state is selected the districts of that states
-                    should be displayed and when the district is selected
-                    company of the that state and district should be displayed.
+                    In the previously created form by Mihir and Aditya, add the
+                    dependencies for state, district, and company. When a state
+                    is selected, the corresponding districts should be
+                    displayed. When a district is selected, the companies of
+                    that state and district should be displayed.
                   </li>
                   <li>
-                    Create a editable table which shows the user work details.
+                    Create an editable table that shows the user's work details.
                   </li>
                   <li>
-                    Now create the chart using chartjs using the user's work
-                    detail data
+                    Use Chart.js to create a chart that displays the total
+                    working hours of each company using the work detail data of
+                    the user. Additionally, the chart should have the ability to
+                    be filtered by state, district, and month combination.
                   </li>
                 </ul>
               </td>
@@ -119,12 +125,12 @@ function Main() {
               <td>
                 <ul>
                   <li>
-                    Explore aggregation and write queries of aggregation for
-                    practice.
+                    Explore aggregation and practice writing queries for
+                    aggregation.
                   </li>
                   <li>
-                    while creating the chart in JD's task use aggregation to get
-                    the chart data.
+                    When creating the chart in JD's task, use aggregation to
+                    retrieve the chart data.
                   </li>
                 </ul>
               </td>
@@ -136,17 +142,17 @@ function Main() {
               <td>
                 <ul>
                   <li>
-                    Upload the image from the react and send it in the node
-                    using server api
+                    Upload the image from the React application and send it to
+                    the server API using Node.js.
                   </li>
                   <li>
-                    then send that image to the python script in the python
-                    script convert image to black & white form and into the
-                    base64,
+                    Then, send the image to the Python script. The Python script
+                    will convert the image to black and white and encode it into
+                    base64 format.
                   </li>
                   <li>
-                    store this base64 image to mongodb database then display the
-                    image on the react frontend
+                    Store this base64 image in the MongoDB database and display
+                    the image on the React frontend.
                   </li>
                 </ul>
               </td>

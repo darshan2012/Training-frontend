@@ -23,7 +23,7 @@ import {
   Radio,
   RadioGroup,
 } from "@mui/material";
-import { Form, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import axios from "axios";
 import { Link as RouteLink, useNavigate } from "react-router-dom";
 // import { ToastContainer, Toast } from "react-bootstrap";
@@ -40,14 +40,14 @@ export default function SignUp() {
     setError,
     formState: { errors },
     trigger,
-    clearErrors
+    clearErrors,
   } = useForm();
   const onSubmit = async (data) => {
     console.log(data);
     await axios
       .post(`${process.env.REACT_APP_URL}users/v1/`, data)
       .then((res) => {
-        console.log(res.data);
+        // console.log(res.data);
         // alert("Success " + res.data.firstname)
         toast.success("Regestration Successful!", {
           position: "top-right",
@@ -125,9 +125,8 @@ export default function SignUp() {
     const selectedState = event.target.value;
     // console.log(event)
     // setValue("state", selectedState); // Update the form value
-    clearErrors("state")
+    clearErrors("state");
     fetchDistricts(selectedState);
-    
   };
 
   const handleDistrictChange = async (event) => {
@@ -135,16 +134,15 @@ export default function SignUp() {
     // console.log(event)
     // setValue("state", selectedState); // Update the form value
     fetchCompanies(district);
-    clearErrors('district')
+    clearErrors("district");
   };
-  
+
   const handleCompanyChange = async (event) => {
     // const selectedState = event.target.value;
     // console.log(event)
     // setValue("state", selectedState); // Update the form value
-    clearErrors("company")
+    clearErrors("company");
     // fetchDistricts(selectedState);
-    
   };
   // console.count();
   return (
@@ -220,7 +218,7 @@ export default function SignUp() {
                   <p className="text-danger">{errors.username.message}</p>
                 )}
               </Grid>
-              <Grid item xs={12}> 
+              <Grid item xs={12}>
                 <FormControl margin="normal" fullWidth variant="outlined">
                   <InputLabel htmlFor="outlined-adornment-password">
                     Password
@@ -230,11 +228,20 @@ export default function SignUp() {
                     type={showPassword ? "text" : "password"}
                     {...register("password", {
                       required: "Password field is required",
-                      minLength:"Password should be of minimum Eight characters",
+                      minLength: {
+                        value: 8,
+                        message:
+                          "Password should be of minimum Eight characters",
+                      },
+                      maxLength: {
+                        value: 20,
+                        message:
+                          "Password should not exceed more than 20 characters",
+                      },
 
                       pattern: {
                         value:
-                          "^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*[@$!%*?&])[A-Za-zd@$!%*?&]{8,}$",
+                        /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*()_+{}|:"<>?[\];',./])(?!.*\s).{8,}$/,
                         message:
                           "Password should be of Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character",
                       },
@@ -255,7 +262,6 @@ export default function SignUp() {
                   />
                 </FormControl>
                 {errors.password && (
-                  
                   <p className="text-danger">{errors.password.message}</p>
                 )}
               </Grid>
@@ -312,7 +318,9 @@ export default function SignUp() {
                       label="Other"
                     />
                   </RadioGroup>
-                  {errors.gender && <p className="text-danger">{errors.gender.message}</p>}
+                  {errors.gender && (
+                    <p className="text-danger">{errors.gender.message}</p>
+                  )}
                 </FormControl>
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -333,7 +341,9 @@ export default function SignUp() {
                       </MenuItem>
                     ))}
                   </Select>
-                  {errors.state && <p className="text-danger">{errors.state.message}</p>}
+                  {errors.state && (
+                    <p className="text-danger">{errors.state.message}</p>
+                  )}
                 </FormControl>
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -354,9 +364,10 @@ export default function SignUp() {
                         {district.districtname}
                       </MenuItem>
                     ))}
-                    
                   </Select>
-                  {errors.district && <p className="text-danger">{errors.district.message}</p>}
+                  {errors.district && (
+                    <p className="text-danger">{errors.district.message}</p>
+                  )}
                 </FormControl>
               </Grid>
 
@@ -378,7 +389,9 @@ export default function SignUp() {
                       </MenuItem>
                     ))}
                   </Select>
-                  {errors.company && <p className="text-danger">{errors.company.message}</p>}
+                  {errors.company && (
+                    <p className="text-danger">{errors.company.message}</p>
+                  )}
                 </FormControl>
               </Grid>
             </Grid>

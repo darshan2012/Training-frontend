@@ -46,7 +46,7 @@ export default function SignIn() {
   // const [loginError, setLoginError] = useState("");
 
   const onSubmit = async (data) => {
-    console.log(data);
+    // console.log(data);
     await axios
       .post(`${process.env.REACT_APP_URL}users/v1/login`, data)
       .then((res) => {

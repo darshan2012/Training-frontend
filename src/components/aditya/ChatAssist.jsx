@@ -14,8 +14,8 @@ function ChatAssist() {
         const res = await axios.post(`${process.env.REACT_APP_URL}openai/v1`,{
           prompt: promptRef.current.value
         })
-        console.log(promptRef.current.value);
-        console.log(res.data[0].message.content);
+        // console.log(promptRef.current.value);
+        // console.log(res.data[0].message.content);
         setResponse(prew => prew = res.data[0].message.content)
       }
       catch(err){

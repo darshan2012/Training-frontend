@@ -84,8 +84,8 @@ export default function BarChart() {
   const [district, setDistrict] = useState("");
   const [month, setMonth] = useState("");
 
-  console.log("state = " + state+ " district = " + district + " month = " + month)
-  console.count()
+  // console.log("state = " + state+ " district = " + district + " month = " + month)
+  // console.count()
   const fetchDistricts = async (stateId) => {
     try {
       const res = await axios.get(
