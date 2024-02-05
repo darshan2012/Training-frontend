@@ -38,6 +38,7 @@ const Display = () => {
         <Box className=' d-flex flex-column justify-content-center align-items-center'>
             <WorkDetailsTable />
             <BarChart />
+            
         </Box>
             
         }

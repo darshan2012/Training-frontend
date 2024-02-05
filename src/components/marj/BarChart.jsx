@@ -21,6 +21,7 @@ import {
   Legend,
 } from "chart.js";
 import { months } from "./months";
+import pptxgen from "pptxgenjs";
 
 Chart.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -121,10 +122,10 @@ export default function BarChart() {
   const generateApiUrl = () => {
     let apiUrl = `${process.env.REACT_APP_URL}analysis/v1?`;
     if (month) apiUrl += `month=${month}&`;
-    if (state){
+    if (state) {
       apiUrl += `state=${state}&`;
       if (district) apiUrl += `district=${district}&`;
-    } 
+    }
     return apiUrl;
   };
 
@@ -159,6 +160,73 @@ export default function BarChart() {
     setDistrict("");
     setMonth("");
   };
+
+  const handleDownload = () => {
+    // 1. Create a Presentation
+    let pres = new pptxgen();
+
+    // 2. Add a Slide to the presentation
+    let slide = pres.addSlide();
+
+    // 3. Add 1+ objects (Tables, Shapes, etc.) to the Slide
+    // slide.addText("Hello World from PptxGenJS...", {
+    //   x: 1.5,
+    //   y: 1.5,
+    //   color: "363636",
+    //   fill: { color: "F1F1F1" },
+    //   align: pres.AlignH.center,
+    // });
+    const dataChartAreaBar = [
+      {
+        name: "Total Working Hours",
+        labels: data.map((record) => record.company.companyname),
+        values: data.map((record) => record.hours),
+      },
+    ];
+    slide.addChart(pres.ChartType.bar, dataChartAreaBar, {
+      x: 0.5,
+      y: 0.5,
+      w: 4,
+      h: 2,
+      // showDataTable: true,
+      showDataTableKeys: true,
+      showLabel: true,
+      showLegend: true,
+    });
+    slide.addChart(pres.ChartType.bar, dataChartAreaBar, {
+      x: 5.5,
+      y: 0.5,
+      w: 4,
+      h: 2,
+      // showDataTable: true,
+      // showDataTableKeys: true,
+      // showLabel: true,
+      // showLegend: true,
+    });
+    slide.addChart(pres.ChartType.bar, dataChartAreaBar, {
+      x: 0.5,
+      y: 2.5,
+      w: 4,
+      h: 2,
+      // showDataTable: true,
+      // showDataTableKeys: true,
+      // showLabel: true,
+      // showLegend: true,
+    });
+    slide.addChart(pres.ChartType.bar, dataChartAreaBar, {
+      x: 5.5,
+      y: 2.5,
+      w: 4,
+      h: 2,
+      // showDataTable: true,
+      // showDataTableKeys: true,
+      // showLabel: true,
+      // showLegend: true,
+    });
+    // 4. Save the Presentation
+    pres.writeFile({ fileName: "Sample Presentation.pptx" });
+  };
+
   const chartData = {
     labels: data.map((record) => record.company.companyname),
     datasets: [
@@ -195,7 +263,6 @@ export default function BarChart() {
               value={state}
               label="State"
               id="state"
-              
             >
               {states.map((state) => (
                 <MenuItem key={state._id} value={state._id}>
@@ -214,7 +281,7 @@ export default function BarChart() {
               label="District"
               id="district"
               name="district"
-              disabled={state==""?"true":false}
+              disabled={state == "" ? "true" : false}
             >
               {districts.map((district) => (
                 <MenuItem key={district._id} value={district._id}>
@@ -257,9 +324,25 @@ export default function BarChart() {
             reset
           </Button>
         </Grid>
+        <Grid mt={1} item xs={6} sm={3}>
+          <Button
+            className="btn"
+            // color="error"
+            sx={{
+              backgroundColor: "#EBA50A",
+              ":hover": { backgroundColor: "#EBA50A" },
+            }}
+            onClick={handleDownload}
+            variant="contained"
+          >
+            Download
+          </Button>
+        </Grid>
       </Grid>
       {data.length > 0 ? (
-        <Bar options={options} data={chartData} />
+        <>
+          <Bar options={options} data={chartData} />
+        </>
       ) : (
         <Typography mt={6} variant="body1" color="textSecondary" align="center">
           No data available for the selected filters.

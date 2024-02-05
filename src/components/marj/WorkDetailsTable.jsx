@@ -20,8 +20,6 @@ import {
 } from "@mui/x-data-grid";
 import axios from "axios";
 
-
-
 function EditToolbar(props) {
   const { setRows, setRowModesModel } = props;
 
@@ -46,7 +44,7 @@ function EditToolbar(props) {
         <GridToolbarExport
           csvOptions={{
             fileName: "customerDataBase",
-            // delimiter: ';',
+            delimiter: ";",
             // utf8WithBom: true,
           }}
           printOptions={{
@@ -65,7 +63,7 @@ export default function WorkDetailsTable() {
   const [rows, setRows] = useState([]);
   const [rowModesModel, setRowModesModel] = useState({});
   // const navigate = useNavigate();
-console.count();
+  console.count();
   const fetchWorkDetails = async () => {
     try {
       const response = await axios.get(
@@ -84,9 +82,8 @@ console.count();
   };
 
   useEffect(() => {
-    
     fetchWorkDetails();
-  }, []); 
+  }, []);
 
   const handleRowEditStop = (params, event) => {
     if (params.reason === GridRowEditStopReasons.rowFocusOut) {
@@ -185,8 +182,6 @@ console.count();
   const handleRowModesModelChange = (newRowModesModel) => {
     setRowModesModel(newRowModesModel);
   };
-
- 
 
   const columns = [
     {
