@@ -8,8 +8,7 @@ import {
   RouterProvider,
   Routes,
 } from "react-router-dom";
-import 'react-toastify/dist/ReactToastify.css';
-
+import "react-toastify/dist/ReactToastify.css";
 
 import Signup from "./components/marj/Signup";
 import SignIn from "./components/marj/SignIn";
@@ -20,20 +19,24 @@ import UserHome from "./components/marj/UserHome";
 import ChatAssist from "./components/aditya/ChatAssist";
 import Display from "./components/marj/Display";
 import HtmlForm from "./components/hetal/HtmlForm";
+import HookMain from "./components/customHooks/HookMain";
+import LogForm from "./logs/LogForm";
 
 const router = createBrowserRouter(
   createRoutesFromElements([
-      <Route path="/" element={<Layout />}>
-        <Route path="" element={<Main />} />
-        <Route path="random-image/" element={<ImageRoot />} />
-        <Route path='user/' element={<UserHome />} >
-          <Route path="" element={<Display />} />
-          <Route path='login/' element={<SignIn />}/>
-          <Route path="signup/" element={<Signup />} />
-        </Route>
-        <Route path='openai/' element={<ChatAssist />}/>
-        <Route path='form-html-css/' element={<HtmlForm />} />
+    <Route path="/" element={<Layout />}>
+      <Route path="" element={<Main />} />
+      <Route path="random-image/" element={<ImageRoot />} />
+      <Route path="user/" element={<UserHome />}>
+        <Route path="" element={<Display />} />
+        <Route path="login/" element={<SignIn />} />
+        <Route path="signup/" element={<Signup />} />
       </Route>
+      <Route path="openai/" element={<ChatAssist />} />
+      <Route path="form-html-css/" element={<HtmlForm />} />
+      <Route path="logs/" element={<LogForm />} />
+      <Route path="custom-hook-example/" element={<HookMain />} />
+    </Route>,
   ])
 );
 // console.count();

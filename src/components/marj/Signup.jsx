@@ -241,7 +241,7 @@ export default function SignUp() {
 
                       pattern: {
                         value:
-                        /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*()_+{}|:"<>?[\];',./])(?!.*\s).{8,}$/,
+                          /^(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*()_+{}|:"<>?[\];',./])(?!.*\s).{8,}$/,
                         message:
                           "Password should be of Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character",
                       },
