@@ -21,6 +21,7 @@ import Display from "./components/marj/Display";
 import HtmlForm from "./components/hetal/HtmlForm";
 import HookMain from "./components/customHooks/HookMain";
 import LogForm from "./logs/LogForm";
+import Analysis from "./logs/Analysis";
 
 const router = createBrowserRouter(
   createRoutesFromElements([
@@ -35,6 +36,7 @@ const router = createBrowserRouter(
       <Route path="openai/" element={<ChatAssist />} />
       <Route path="form-html-css/" element={<HtmlForm />} />
       <Route path="logs/" element={<LogForm />} />
+      <Route path="logs/analysis" element={<Analysis />} />
       <Route path="custom-hook-example/" element={<HookMain />} />
     </Route>,
   ])

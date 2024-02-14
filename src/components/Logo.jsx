@@ -6,7 +6,7 @@ function Logo() {
   return (
     <>
       <Link to={"/"}>
-        <img className="logo" src={logo} />
+        <img  className="logo" src={logo} />
       </Link>
     </>
   );
