@@ -20,8 +20,9 @@ import ChatAssist from "./components/aditya/ChatAssist";
 import Display from "./components/marj/Display";
 import HtmlForm from "./components/hetal/HtmlForm";
 import HookMain from "./components/customHooks/HookMain";
-import LogForm from "./logs/LogForm";
-import Analysis from "./logs/Analysis";
+import LogForm from "./components/logs/LogForm";
+import Analysis from "./components/logs/Analysis";
+import Todo from "./components/todo/ToDo";
 
 const router = createBrowserRouter(
   createRoutesFromElements([
@@ -38,6 +39,7 @@ const router = createBrowserRouter(
       <Route path="logs/" element={<LogForm />} />
       <Route path="logs/analysis" element={<Analysis />} />
       <Route path="custom-hook-example/" element={<HookMain />} />
+      <Route path="/todo" element={<Todo />} />
     </Route>,
   ])
 );

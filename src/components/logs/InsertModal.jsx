@@ -11,7 +11,6 @@ export default function InsertModal({
   title,
   url,
 }) {
-  
   const name = useRef();
   const handleClose = () => setOpen(false);
   const handleSubmit = () => {
@@ -32,7 +31,6 @@ export default function InsertModal({
 
   return (
     <>
-      
       <Modal show={open} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Add {title}</Modal.Title>

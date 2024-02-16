@@ -6,10 +6,24 @@ function FooterComp() {
     <>
       <hr />
       <footer className="d-flex footer">
-        <p className="col-6 text-muted text-center">© All rights reserved</p>
+        <p className="col text-muted text-center">© All rights reserved</p>
         {/* <p> */}
         <Link
-          className="col-6 text-center"
+          className="col text-center"
+          // target="_blank"
+          to="/logs/analysis"
+        >
+          Logs
+        </Link>
+        <Link
+          className="col text-center"
+          // target="_blank"
+          to="/todo"
+        >
+          todo
+        </Link>
+        <Link
+          className="col text-center"
           target="_blank"
           to="https://blushing-gambler-7cb.notion.site/Training-Documentation-ac40f9471022426da347acc7549185b7"
         >
