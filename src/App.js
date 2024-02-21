@@ -7,6 +7,7 @@ import {
   Route,
   RouterProvider,
   Routes,
+  useNavigate,
 } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -23,6 +24,7 @@ import HookMain from "./components/customHooks/HookMain";
 import LogForm from "./components/logs/LogForm";
 import Analysis from "./components/logs/Analysis";
 import Todo from "./components/todo/ToDo";
+import { useEffect } from "react";
 
 const router = createBrowserRouter(
   createRoutesFromElements([
@@ -45,6 +47,10 @@ const router = createBrowserRouter(
 );
 // console.count();
 function App() {
+  // const {userInfo,userToken} = useSelector(())
+  useEffect(() => {
+    
+  })
   return (
     <>
       <RouterProvider router={router} />

@@ -52,7 +52,7 @@ const Todo = () => {
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
-
+  
   return (
     <TodoProvider
       value={{ todos, addTodo, updateTodo, deleteTodo, toggleCompleted }}
@@ -61,9 +61,10 @@ const Todo = () => {
         container
         justifyContent="center"
         alignItems="center"
+        // width={"60%"}
         // style={{ height: "300px", overflow: "scroll" }}
       >
-        <Grid item xs={12} sm={8} md={6} lg={4}>
+        <Grid item xs={12} sm={8} md={6}>
           <Paper elevation={3} style={{ padding: "20px" }}>
             <Typography variant="h3" gutterBottom align="center">
               Todo App

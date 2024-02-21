@@ -13,6 +13,7 @@ import { DateRangePicker } from "react-date-range";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import { addDays, format, subYears } from "date-fns";
+import LogsTable from "./LogsTable";
 
 function Analysis() {
   const [data, setData] = useState([]);
@@ -124,6 +125,7 @@ function Analysis() {
 
   return (
     <Box>
+      <LogsTable />
       <Box margin={"4px"} className="row" gap={3} maxWidth={"30%"}>
         <FormControl className="col" fullWidth>
           <InputLabel htmlFor="project">Project</InputLabel>
