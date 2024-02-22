@@ -27,7 +27,7 @@ const Todo = () => {
       )
     );
   };
-
+  
   const deleteTodo = (id) => {
     setTodos((prev) => prev.filter((prevTodo) => prevTodo.id !== id));
   };
